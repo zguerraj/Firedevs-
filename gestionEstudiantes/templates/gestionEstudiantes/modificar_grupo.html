@@ -1,0 +1,25 @@
+{% extends "gestionEstudiantes/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="mt-5">
+        <h1>Modificar Grupo</h1>
+        <form class="lead" action="" method="POST">
+          {% csrf_token %}
+          <table>
+              {{ form.as_table }}
+          </table>
+
+          <p>
+            <input type="submit" name="submit" value="Modificar">
+            <input type="submit" name="submit1" value="Cancelar"> </p>          
+        </form>
+          
+    </div>
+</div>  
+
+
+{% endblock %}

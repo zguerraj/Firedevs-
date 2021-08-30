@@ -1,0 +1,75 @@
+{% extends "gestionEstudiantes/base.html" %}
+
+{% load static %}
+
+{% block js %}
+
+    <script>
+        function eliminarEstudiante(id){
+            Swal.fire({
+                "title": "¿Estas seguro?",
+                "text": "Esta acción no se puede deshacer",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Sí, Eliminar",
+                "reverseButtons":true
+            })
+            .then(function(result){
+                if (result.isConfirmed){
+                    window.location.href = "/eliminar_estudiante/"+id+"/"
+                }
+            })
+        }
+
+    </script>
+        
+
+{% endblock %}
+
+{% block content %}
+
+        <!-- Page content-->
+        <div class="container">
+            <div class="mt-5">
+                {% if listaE %}
+                <h1>Listado Estudiante</h1>
+                                
+                <table class="lead" border="2">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Grupo</th>
+                        <th>Sexo</th>
+                        <th>Email</th>
+                        <th>Ciudad de Nacimiento</th>
+                        <th>Opción</th>
+                        <th>Opción</th>
+                    </tr>
+                    {% for elemento in listaE %}
+                    <tr>
+                        
+                            <td>{{elemento.nombre}}</td>
+                            <td>{{elemento.edad}}</td>
+                            <td>{{elemento.fechaNacimiento}}</td>
+                            <td>{{elemento.grupo}}</td>
+                            {% if elemento.sexo %}
+                                <td>Femenino</td>
+                            {% else %}
+                                <td>Masculino</td>
+                            {% endif %}
+                            <td>{{elemento.email}}</td>
+                            <td>{{elemento.ciudadNacimiento}}</td>
+                            <td><a href="{% url 'Modificar_Estudiante' elemento.id %}">Modificar</a></td>
+                            <td><a href="#" onclick="eliminarEstudiante({{elemento.id}})">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                    </table>                
+                    {% endif %}
+                       
+            </div>
+        </div>
+
+
+{% endblock %}

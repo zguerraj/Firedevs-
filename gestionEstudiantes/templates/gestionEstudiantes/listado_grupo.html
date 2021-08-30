@@ -1,0 +1,64 @@
+{% extends "gestionEstudiantes/base.html" %}
+
+{% load static %}
+
+{% block js %}
+
+    <script>
+        function eliminarGrupo(id){
+            Swal.fire({
+                "title": "¿Estas seguro?",
+                "text": "Esta acción no se puede deshacer",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Sí, Eliminar",
+                "reverseButtons":true
+            })
+            .then(function(result){
+                if (result.isConfirmed){
+                    window.location.href = "/eliminar_grupo/"+id+"/"
+                }
+            })
+        }
+
+    </script>
+        
+
+{% endblock %}
+
+{% block content %}
+
+        <!-- Page content-->
+        <div class="container">
+            <div class="mt-5">
+                {% if listaG %}
+
+                <h1>Listado Grupo</h1>
+                
+                <table class="lead" border="2">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Profesor Guía</th>
+                        <th>Opción</th>
+                        <th>Opción</th>
+                    </tr>
+                    {% for elemento1 in listaG %}
+                    <tr>
+                        
+                            <td>{{elemento1.nombre}}</td>
+                            <td>{{elemento1.profesorGuia}}</td>
+                            <td><a href="{% url 'Modificar_Grupo' elemento1.id %}">Modificar</a></td>
+                            <td><a href="#" onclick="eliminarGrupo({{elemento1.id}})">Eliminar</a></td>
+                        
+                    </tr>
+                    {% endfor %}
+                    </table>
+
+                    {% endif %}
+                    
+            </div>
+        </div>
+
+
+{% endblock %}
